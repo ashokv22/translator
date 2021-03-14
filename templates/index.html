@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+		<title>Get Greeting</title>
+		<style> 
+textarea {
+  width: 49.5%;
+  font-family: roboto;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+</style>
+	</head>
+
+	<body>
+	<div>
+		<form method="POST" id="greetingForm">
+
+			<textarea id="name" name="name" placeholder="Enter something..." autofocus="autofocus"></textarea>
+			<textarea id="src" disabled>{{name}}</textarea>
+			<button style="font-family: roboto;" onclick="document.getElementById('greetingForm').submit()">Submit</button>
+		</form>
+		</div>
+		
+		<!-- <script> 
+			window.onload = function() 
+			{ 
+				document.getElementById("name").focus(); 
+				document.getElementById("trg").disabled = true;
+			
+			}
+		</script> -->
+		
+	</body>
+</html>
