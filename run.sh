@@ -7,7 +7,8 @@ pip install easynmt
 echo "---------------Installing flask-ngrok------------------"
 pip install flask-ngrok
 echo "---------------RUN main.py------------------"
-python /content/colab1/main.py
+cd /content/colab1/
+python main.py
 echo "---------------RUN app.py------------------"
-python /content/colab1/app.py >> /dev/null &
+python app.py >> /dev/null &
 
