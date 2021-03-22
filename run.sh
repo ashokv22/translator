@@ -1,4 +1,7 @@
 #!/bin/bash
+
+echo "working dir:- $(pwd)"
+cd /content/colab1
 echo "---------------Installing requirements-------------"
 git pull origin main
 echo "---------------Installing requirements-------------"
@@ -7,7 +10,6 @@ pip install easynmt
 echo "---------------Installing flask-ngrok------------------"
 pip install flask-ngrok
 echo "---------------RUN main.py------------------"
-cd /content/colab1/
 python main.py
 echo "---------------RUN app.py------------------"
 python app.py >> /dev/null &
