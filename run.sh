@@ -12,5 +12,5 @@ pip install flask-ngrok
 echo "---------------RUN main.py------------------"
 #python main.py
 echo "---------------RUN app.py------------------"
-python $(pwd)/app.py >> /dev/null &
+python $(pwd)/app.py 
 
