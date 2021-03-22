@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "---------------Installing requirements-------------"
-git pull origin venkat-new-branch
+git pull origin main
 echo "---------------Installing requirements-------------"
 echo "---------------Installing easynmt------------------"
 pip install easynmt
