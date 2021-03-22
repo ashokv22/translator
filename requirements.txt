@@ -1,15 +1,13 @@
-Upload zip file in files in colab.
-Extract zip file by- 
-!unzip /content/colab1.zip
+#!/bin/bash
+echo "---------------Installing requirements-------------"
+git pull origin venkat-new-branch
+echo "---------------Installing requirements-------------"
+echo "---------------Installing easynmt------------------"
+pip install easynmt
+echo "---------------Installing flask-ngrok------------------"
+pip install flask-ngrok
+echo "---------------RUN main.py------------------"
+python /content/colab1/main.py
+echo "---------------RUN app.py------------------"
+python /content/colab1/app.py >> /dev/null &
 
-Install EasyNMT
-!pip install -U easynmt
-
-Install flask-ngrok to open port and run in colab
-!pip install flask-ngrok
-
-After extracting copy the path and paste after python, it'll download model while executing
-!python /content/colab1/main.py
-
-After runnung the main file, run app.py file it'll open a session and open a port click generated ip to view the flask app
-!python /content/colab1/app.py
