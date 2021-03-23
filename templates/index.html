@@ -2,74 +2,106 @@
 	<head>
 		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 		<title>Get Greeting</title>
-		<style> 
-textarea {
-  width: 49.5%;
-  font-family: roboto;
-  height: 150px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  font-size: 16px;
-  resize: none;
-}
-</style>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	</head>
-
-	<body>
-	<div>
-		<form method="POST" action="/txt">
-
-    			<label> Select Language </label>
-			<select name="src_lang" id="src_lang">
-				<option disabled selected> --- Select --- </option>
-				  <option value="ar" id="ar"> Arabic </option>
-				  <option value="bn" id="bn"> Bengali </option>
-				  <option value="zh" id="zn-CN"> Chinese </option>
-				<option value="en" id="en"> English </option>
-				  <option value="fr" id="fr"> French </option>
-				  <option value="hi" id="hi"> Hindi </option>
-				  <option value="id" id="id"> Indonesian </option> 
-				  <option value="pt" id="pt-PT"> Portuguese </option>
-				  <option value="ru" id="ru"> Russian </option>
-				  <option value="es" id="es"> Spanish </option>
-			</select>
-		
-			<label style="position : absolute; right:575"> Select Language </label>
-			<select name="trg_lang" id="trg_lang" style="position : absolute; right:455">
-				<option disabled selected> --- Select --- </option>
-				  <option value="ar" id="ar"> Arabic </option>
-				  <option value="bn" id="bn"> Bengali </option>
-				  <option value="zh" id="zn-CN"> Chinese </option>
-				<option value="en" id="en"> English </option>
-				  <option value="fr" id="fr"> French </option>
-				  <option value="hi" id="hi"> Hindi </option>
-				  <option value="id" id="id"> Indonesian </option> 
-				  <option value="pt" id="pt-PT"> Portuguese </option>
-				  <option value="ru" id="ru"> Russian </option>
-				  <option value="es" id="es"> Spanish </option>
-			</select>
-		
-		
-			<br> <br>
-
-
-			<textarea id="name" name="name" placeholder="Enter something..."></textarea>
-			<textarea id="src">{{name}}</textarea>
-			<button style="font-family: roboto;" onclick="document.getElementById('greetingForm').submit()">Submit</button>
-		</form>
+<body>
+	<div class="row" style="margin: 5%;">
+		<div class="col-md-12">
+		<div class="card ">
+			<div class="card-header ">
+			<h5 class="card-title">Language Translator</h5>
+			</div>
+			<form name="form" action="/demo">
+				<div class="card-body" style="margin-bottom: 1%;">
+					<div class="row form-group">
+						<div class="col-sm-6 mb-10">
+						<select class="form-control col-lg-15" name="src_lang" id="src_lang">
+							<option value="ar" id="ar"> Arabic </option>
+							<option value="bn" id="bn"> Bengali </option>
+							<option value="zh" id="zn-CN"> Chinese </option>
+							<option value="en" id="en" selected> English </option>
+							<option value="fr" id="fr"> French </option>
+							<option value="hi" id="hi"> Hindi </option>
+							<option value="id" id="id"> Indonesian </option> 
+							<option value="pt" id="pt-PT"> Portuguese </option>
+							<option value="ru" id="ru"> Russian </option>
+							<option value="es" id="es"> Spanish </option>
+						</select>
+						<textarea class="form-control col-sm-15" required style="height:100%" name="ta_src_lang" id="ta_src_lang" ></textarea>
+						</div>
+						
+						<div class="col-sm-6 mb-10">
+						<select class="form-control col-lg-15" name="dest_lang" id="dest_lang">
+							<option disabled selected> Select Language </option>
+							<option value="ar" id="ar" selected> Arabic </option>
+							<option value="bn" id="bn"> Bengali </option>
+							<option value="zh" id="zn-CN"> Chinese </option>
+							<option value="en" id="en"> English </option>
+							<option value="fr" id="fr"> French </option>
+							<option value="hi" id="hi"> Hindi </option>
+							<option value="id" id="id"> Indonesian </option> 
+							<option value="pt" id="pt-PT"> Portuguese </option>
+							<option value="ru" id="ru"> Russian </option>
+							<option value="es" id="es"> Spanish </option>
+						</select>
+						<textarea class="form-control col-lg-15" disabled style="height:100%" name="ta_desc_lang_1" id="ta_desc_lang"></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="card-footer ">
+			<hr>
+			<div class="stats">
+				<i class="fa fa-history"></i> Updated 3 minutes ago {{src_text}}
+			</div>
+			</div>
 		</div>
-		
-		<!-- <script> 
-			window.onload = function() 
-			{ 
-				document.getElementById("name").focus(); 
-				document.getElementById("trg").disabled = true;
-			
-			}
-		</script> -->
-		
-	</body>
+		</div>
+	</div>
+</body>
+<script>
+
+
+$('#ta_src_lang').on('input', function() 
+{
+	ta_src_lang=$('#ta_src_lang').val()
+	src_lang=$("#src_lang").val()
+	dest_lang=$("#dest_lang").val()
+	$.post("/translate",{ ta_src_lang: ta_src_lang,src_lang:src_lang,dest_lang:dest_lang }).done(function (data) 
+	{
+		console.log(data)
+		if(data=="")
+		{
+			alert("Somthing went wrong please try again later...")
+		}
+		else
+		{
+			$('#ta_desc_lang').val(data)
+		}
+	});
+});
+
+$(document).on('change',"#dest_lang", function() 
+{
+	ta_src_lang=$('#ta_src_lang').val()
+	src_lang=$("#src_lang").val()
+	dest_lang=$("#dest_lang").val()
+	console.log(ta_src_lang)
+	console.log(src_lang)
+	$.post("/change_lang",{ ta_src_lang: ta_src_lang,src_lang:src_lang,dest_lang:dest_lang }).done(function (data) 
+	{
+		if(data=="")
+		{
+			alert("Somthing went wrong please try again later...")
+		}
+		else
+		{
+			//$('#ta_desc_lang').val(data)
+			console.log(data)
+
+		}
+	});
+});
+</script>
 </html>

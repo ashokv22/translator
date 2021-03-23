@@ -13,13 +13,21 @@ run_with_ngrok(app)
 def index():
 	return render_template("index.html")
 
-@app.route('/txt', methods = ['POST'])
-def txt():
-  src=request.form["src_lang"]
-  trg=request.form["trg_lang"]
-  src_text = request.form["name"]
-  trans_text = main.translate(src,trg, src_text)
-  return render_template("index.html", name = trans_text)
+@app.route('/translate', methods = ['POST'])
+def translate():
+  ta_src_lang = request.form.get('ta_src_lang')
+  src_lang = request.form.get('src_lang')
+  dest_lang = request.form.get('dest_lang')
+  trans_text = main.translate(src_lang,dest_lang, ta_src_lang)
+  return trans_text
+
+@app.route('/change_lang', methods = ['POST'])
+def change_lang():
+  ta_src_lang = request.form.get('ta_src_lang')
+  src_lang = request.form.get('src_lang')
+  dest_lang = request.form.get('dest_lang')
+  trans_text = main.translate(src_lang,dest_lang, ta_src_lang)
+  return trans_text
 
 if __name__ == '__main__':
 	app.run()
