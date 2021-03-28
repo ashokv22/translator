@@ -21,13 +21,13 @@ def translate():
   trans_text = main.translate(src_lang,dest_lang, ta_src_lang)
   return trans_text
 
-@app.route('/change_lang', methods = ['POST'])
-def change_lang():
-  ta_src_lang = request.form.get('ta_src_lang')
-  src_lang = request.form.get('src_lang')
-  dest_lang = request.form.get('dest_lang')
-  trans_text = main.translate(src_lang,dest_lang, ta_src_lang)
-  return trans_text
+# @app.route('/change_lang', methods = ['POST'])
+# def change_lang():
+#   ta_src_lang = request.form.get('ta_src_lang')
+#   src_lang = request.form.get('src_lang')
+#   dest_lang = request.form.get('dest_lang')
+#   trans_text = demo(src_lang,dest_lang, ta_src_lang)
+#   return trans_text
 
 if __name__ == '__main__':
 	app.run()

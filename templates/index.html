@@ -4,70 +4,73 @@
 		<title>Get Greeting</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="css/material.css">
+		<script src="js/material.js"></script>
 	</head>
 <body>
 	<div class="row" style="margin: 5%;">
 		<div class="col-md-12">
-		<div class="card ">
-			<div class="card-header ">
-			<h5 class="card-title">Language Translator</h5>
-			</div>
-			<form name="form" action="/demo">
-				<div class="card-body" style="margin-bottom: 1%;">
-					<div class="row form-group">
-						<div class="col-sm-6 mb-10">
-						<select class="form-control col-lg-15" name="src_lang" id="src_lang">
-							<option value="ar" id="ar"> Arabic </option>
-							<option value="bn" id="bn"> Bengali </option>
-							<option value="zh" id="zn-CN"> Chinese </option>
-							<option value="en" id="en" selected> English </option>
-							<option value="fr" id="fr"> French </option>
-							<option value="hi" id="hi"> Hindi </option>
-							<option value="id" id="id"> Indonesian </option> 
-							<option value="pt" id="pt-PT"> Portuguese </option>
-							<option value="ru" id="ru"> Russian </option>
-							<option value="es" id="es"> Spanish </option>
-						</select>
-						<textarea class="form-control col-sm-15" required style="height:100%" name="ta_src_lang" id="ta_src_lang" ></textarea>
+			<div class="card ">
+				<div class="card-header bg-info" >
+				<h5 class="card-title text-light ">Language Translator</h5>
+				<input type="button" name="tras_txt" class="btn btn-outline-light tras_txt_btn" value="Text">
+				<input type="button" name="up_file"  class="btn btn-outline-light up_file_btn" value="Upload">
+				</div>
+					<div class="card-body">
+						<form name="form"></form>
+						<div class="form-inline">
+							<select class="form-control" style="width: 40%;margin-left: 5%;" name="src_lang" id="src_lang">
+								<option value="ar" id="ar"> Arabic </option>
+								<option value="bn" id="bn"> Bengali </option>
+								<option value="zh" id="zn-CN"> Chinese </option>
+								<option value="en" id="en" selected> English </option>
+								<option value="fr" id="fr"> French </option>
+								<option value="hi" id="hi"> Hindi </option>
+								<option value="id" id="id"> Indonesian </option> 
+								<option value="pt" id="pt-PT"> Portuguese </option>
+								<option value="ru" id="ru"> Russian </option>
+								<option value="es" id="es"> Spanish </option>
+							</select>
+
+							<select class="form-control" style="width: 40%;margin-left: 5%;" name="dest_lang" id="dest_lang">
+								<option disabled selected> Select Language </option>
+								<option value="ar" id="ar" selected> Arabic </option>
+								<option value="bn" id="bn"> Bengali </option>
+								<option value="zh" id="zn-CN"> Chinese </option>
+								<option value="en" id="en"> English </option>
+								<option value="fr" id="fr"> French </option>
+								<option value="hi" id="hi"> Hindi </option>
+								<option value="id" id="id"> Indonesian </option> 
+								<option value="pt" id="pt-PT"> Portuguese </option>
+								<option value="ru" id="ru"> Russian </option>
+								<option value="es" id="es"> Spanish </option>
+							</select>
 						</div>
-						
-						<div class="col-sm-6 mb-10">
-						<select class="form-control col-lg-15" name="dest_lang" id="dest_lang">
-							<option disabled selected> Select Language </option>
-							<option value="ar" id="ar" selected> Arabic </option>
-							<option value="bn" id="bn"> Bengali </option>
-							<option value="zh" id="zn-CN"> Chinese </option>
-							<option value="en" id="en"> English </option>
-							<option value="fr" id="fr"> French </option>
-							<option value="hi" id="hi"> Hindi </option>
-							<option value="id" id="id"> Indonesian </option> 
-							<option value="pt" id="pt-PT"> Portuguese </option>
-							<option value="ru" id="ru"> Russian </option>
-							<option value="es" id="es"> Spanish </option>
-						</select>
-						<textarea class="form-control col-lg-15" disabled style="height:100%" name="ta_desc_lang_1" id="ta_desc_lang"></textarea>
+						<div class="form-inline text_div" style="margin-top: 2%">
+							<textarea class="form-control" style="width: 40%;margin-left: 5%;margin-right: 0.5%;" rows="5" name="ta_src_lang" id="ta_src_lang" ></textarea>
+							<button class="btn btn-link swap-btn"><i class="material-icons">swap_horiz</i></button>
+							<textarea class="form-control" style="width: 40%;margin-left: 0.5%;" rows="5" disabled name="ta_desc_lang_1" id="ta_desc_lang"></textarea>
 						</div>
-					</div>
-				</form>
-			</div>
-			<div class="card-footer ">
-			<hr>
-			<div class="stats">
-				<i class="fa fa-history"></i> Updated 3 minutes ago {{src_text}}
-			</div>
+						<div class="upload_div" style="margin-top: 2%;">
+							<button class="btn btn-outline-info" style="margin: 5%;margin-left: 45%;">Browse</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-		</div>
+	</div>
 	</div>
 </body>
 <script>
 
-
+/*
 $('#ta_src_lang').on('input', function() 
 {
 	ta_src_lang=$('#ta_src_lang').val()
 	src_lang=$("#src_lang").val()
 	dest_lang=$("#dest_lang").val()
+	console.log(ta_src_lang)
 	$.post("/translate",{ ta_src_lang: ta_src_lang,src_lang:src_lang,dest_lang:dest_lang }).done(function (data) 
 	{
 		console.log(data)
@@ -81,15 +84,96 @@ $('#ta_src_lang').on('input', function()
 		}
 	});
 });
+*/
+$(document).ready(function(){
+  
+    $(".upload_div").hide();
+	$(".tras_txt_btn").addClass("active")
+
+});
+
+$(document).on("click",".up_file_btn",function()
+{
+    $(".text_div").hide();
+	$(".upload_div").show();
+	$(".up_file_btn").addClass("active")
+	$(".tras_txt_btn").removeClass("active")
+	
+});
+
+$(document).on("click",".tras_txt_btn",function()
+{
+    $(".text_div").show();
+	$(".upload_div").hide();
+	$(".up_file_btn").removeClass("active")
+	$(".tras_txt_btn").addClass("active")
+});
+
+var globalTimeout = null;  
+$('#ta_src_lang').keyup(function() {
+  if (globalTimeout != null) {
+    clearTimeout(globalTimeout);
+  }
+  globalTimeout = setTimeout(function() {
+    globalTimeout = null;  
+	ta_src_lang=$('#ta_src_lang').val()
+	src_lang=$("#src_lang").val()
+	dest_lang=$("#dest_lang").val()
+	$('#ta_desc_lang').val(ta_src_lang)
+	console.log(ta_src_lang)
+	$.post("/translate",{ ta_src_lang: ta_src_lang,src_lang:src_lang,dest_lang:dest_lang }).done(function (data) 
+	{
+		console.log(data)
+		if(data=="")
+		{
+			alert("Somthing went wrong please try again later...")
+		}
+		else
+		{
+			$('#ta_desc_lang').val(data)
+		}
+	});
+  }, 300);  
+});  
+
+$(document).on("click",".swap-btn",function(){
+	
+	src_lang=$("#src_lang").val()
+	dest_lang=$("#dest_lang").val()
+	ta_src_lang=$('#ta_src_lang').val()
+	ta_desc_lang=$('#ta_desc_lang').val()
+	//select
+	toggle_src=$("#dest_lang").val(src_lang)
+	toggle_dest=$("#src_lang").val(dest_lang)
+	//text
+	ta_toggle_src=$("#ta_src_lang").val(ta_desc_lang)
+	//ta_toggle_dest=$("#ta_desc_lang").val(ta_src_lang)
+	
+	$.post("/translate",{ ta_src_lang: ta_toggle_src,src_lang:toggle_src.val(),dest_lang:toggle_dest.val() }).done(function (data) 
+	{
+		if(data=="")
+		{
+			alert("Somthing went wrong please try again later...")
+		}
+		else
+		{
+			//$('#ta_desc_lang').val(data)
+			$('#ta_desc_lang').val(data)
+
+		}
+	});
+	
+	
+});
 
 $(document).on('change',"#dest_lang", function() 
 {
 	ta_src_lang=$('#ta_src_lang').val()
 	src_lang=$("#src_lang").val()
 	dest_lang=$("#dest_lang").val()
-	console.log(ta_src_lang)
-	console.log(src_lang)
-	$.post("/change_lang",{ ta_src_lang: ta_src_lang,src_lang:src_lang,dest_lang:dest_lang }).done(function (data) 
+	
+	$('#ta_desc_lang').val(ta_src_lang)
+	$.post("/translate",{ ta_src_lang: ta_src_lang,src_lang:src_lang,dest_lang:dest_lang }).done(function (data) 
 	{
 		if(data=="")
 		{
