@@ -149,7 +149,7 @@ $(document).on("click",".swap-btn",function(){
 	ta_toggle_src=$("#ta_src_lang").val(ta_desc_lang)
 	//ta_toggle_dest=$("#ta_desc_lang").val(ta_src_lang)
 	
-	$.post("/translate",{ ta_src_lang: ta_toggle_src,src_lang:toggle_src.val(),dest_lang:toggle_dest.val() }).done(function (data) 
+	$.post("/translate",{ ta_src_lang: ta_toggle_src.val(),src_lang:toggle_src.val(),dest_lang:toggle_dest.val() }).done(function (data) 
 	{
 		if(data=="")
 		{
