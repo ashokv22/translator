@@ -3,7 +3,7 @@ from flask_ngrok import run_with_ngrok
 import main
 # from os import urandom
 # import functions
-# import detect_language
+import detect_language
 
 app = Flask(__name__)
 run_with_ngrok(app)
@@ -17,6 +17,8 @@ def index():
 def translate():
   ta_src_lang = request.form.get('ta_src_lang')
   src_lang = request.form.get('src_lang')
+  if src_lang=="detect":
+    src_lang = detect_language.detect_lang(src_lang)
   dest_lang = request.form.get('dest_lang')
   trans_text = main.translate(src_lang,dest_lang, ta_src_lang)
   return trans_text
