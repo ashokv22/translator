@@ -7,6 +7,10 @@ git pull origin main
 echo "---------------Installing requirements-------------"
 echo "---------------Installing easynmt------------------"
 pip install easynmt
+pip install polyglot
+pip3 install pyicu
+pip3 install pycld2
+pip3 install morfessor
 echo "---------------Installing flask-ngrok------------------"
 pip install flask-ngrok
 echo "---------------RUN main.py------------------"

@@ -1,8 +1,7 @@
 from flask import Flask, request, redirect, render_template
+import json
 from flask_ngrok import run_with_ngrok
 import main
-# from os import urandom
-# import functions
 import detect_language
 
 app = Flask(__name__)
@@ -13,15 +12,18 @@ run_with_ngrok(app)
 def index():
 	return render_template("index.html")
 
-@app.route('/translate', methods = ['POST'])
+@app.route('/translate', methods = ['POST',"GET"])
 def translate():
-  ta_src_lang = request.form.get('ta_src_lang')
-  src_lang = request.form.get('src_lang')
+  ta_src_lang = request.args['ta_src_lang']
+  src_lang = request.args['src_lang']
   if src_lang=="detect":
-    src_lang = detect_language.detect_lang(src_lang)
-  dest_lang = request.form.get('dest_lang')
+    detect = detect_language.detect_languages(ta_src_lang)
+    src_lang = detect[0]['language']
+  dest_lang = request.args['dest_lang']
   trans_text = main.translate(src_lang,dest_lang, ta_src_lang)
-  return trans_text
+  response=json.dumps({"src_lang":src_lang,"dest_lang":dest_lang,"ta_src_lang":ta_src_lang})
+  print(response)
+  return response
 
 # @app.route('/change_lang', methods = ['POST'])
 # def change_lang():
