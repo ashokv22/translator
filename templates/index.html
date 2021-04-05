@@ -53,8 +53,37 @@
 							<button class="btn btn-link swap-btn"><i class="material-icons">swap_horiz</i></button>
 							<textarea class="form-control" style="width: 40%;margin-left: 0.5%;" rows="5" disabled name="ta_desc_lang_1" id="ta_desc_lang"></textarea>
 						</div>
-						<div class="upload_div" style="margin-top: 2%;">
-							<button class="btn btn-outline-info" style="margin: 5%;margin-left: 45%;">Browse</button>
+						<div class="upload_div" style="margin-top: 5%;">
+							<center>
+								<p style="color:black; font-weight: normal; font-size:25;">Choose Document</p>
+								<p style="color:#787878; font-weight: lighter; font-size:17;">Upload a .doc, .docx, .odf, .pdf, .ppt, .pptx, .ps, .rtf, .txt, .xls, or .xlsx</p>
+								<form id="upload-file" method="post" enctype="multipart/form-data">
+								<label class="btn btn-primary" for="my-file-selector">
+									<input id="my-file-selector" type="file" style="display:none" onchange="$('#upload-file-info').text(this.files[0].name)" accept="text/plain, .doc, .docx, .odf, .pdf, .ppt, .pptx, .ps, .rtf, .txt, .xls, .xlsx">
+										Browse your computer
+								</label>
+								</form>
+								<span class='label label-info' id="upload-file-info"></span>
+							</center><br/>
+							<script>
+								$(function()
+								{
+									$('#my-file-selector').click(function() {
+										var form_data = new FormData($('#upload-file')[0]);
+										$.ajax({
+											type: 'POST',
+											url: '/uploadajax',
+											data: form_data,
+											contentType: false,
+											cache: false,
+											processData: false,
+											success: function(data) {
+												console.log('Success!');
+											},
+										});
+									});
+									});
+							</script>
 						</div>
 					</form>
 				</div>
@@ -118,6 +147,7 @@ $('#ta_src_lang').keyup(function() {
   globalTimeout = setTimeout(function() {
     globalTimeout = null;  
 	ta_src_lang=$('#ta_src_lang').val()
+  
 	src_lang=$("#src_lang").val()
 	dest_lang=$("#dest_lang").val()
 	$('#ta_desc_lang').val(ta_src_lang)
@@ -131,6 +161,8 @@ $('#ta_src_lang').keyup(function() {
 		}
 		else
 		{
+      console.log("res:"+src_lang)
+      $("#src_lang").val(src_lang)
 			$('#ta_desc_lang').val(data)
 		}
 	});
