@@ -14,16 +14,17 @@ def index():
 
 @app.route('/translate', methods = ['POST',"GET"])
 def translate():
-  ta_src_lang = request.args['ta_src_lang']
-  src_lang = request.args['src_lang']
+  ta_src_lang = request.form.get('ta_src_lang')
+  src_lang = request.form.get('src_lang')
   if src_lang=="detect":
     detect = detect_language.detect_languages(ta_src_lang)
     src_lang = detect[0]['language']
-  dest_lang = request.args['dest_lang']
+  print(src_lang)
+  dest_lang = request.form.get('dest_lang')
   trans_text = main.translate(src_lang,dest_lang, ta_src_lang)
   response=json.dumps({"src_lang":src_lang,"dest_lang":dest_lang,"ta_src_lang":ta_src_lang})
   print(response)
-  return response
+  return trans_text
 
 # @app.route('/change_lang', methods = ['POST'])
 # def change_lang():
