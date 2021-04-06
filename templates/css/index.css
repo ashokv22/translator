@@ -1,0 +1,36 @@
+
+.content_copy{
+    display: inline-block;
+    text-decoration: none;
+    color: #787878;
+    overflow: hidden;
+    transition: .4s;
+    position:absolute;
+    margin-left: 83%;
+    margin-top: 9%;
+    font-size: 15px;
+}
+
+.content_copy:hover{
+
+    color: #160b0b;
+
+}
+
+.volume_up{
+    display: inline-block;
+    text-decoration: none;
+    color: #787878;
+    overflow: hidden;
+    transition: .4s;
+    position:absolute;
+    margin-left: 80.5%;
+    margin-top: 9%;
+    font-size: 20px;
+}
+
+.volume_up:hover{
+
+    color: #160b0b;
+
+}

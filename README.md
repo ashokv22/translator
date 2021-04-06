@@ -12,3 +12,5 @@ Colab:
 Click on it will redirect to new tab and open's the index page.
 5. Now you can translate the text.
 6. If it gives error detect language run !pip install detectlanguage
+
+curl :curl -X POST --data '{"src_lang":"detect","dest_lang":"ar","ta_src_lang":"goodg"}' http://localhost:5000/translate

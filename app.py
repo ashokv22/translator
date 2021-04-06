@@ -3,6 +3,7 @@ import json
 from flask_ngrok import run_with_ngrok
 import main
 import detect_language
+import speech
 
 app = Flask(__name__)
 run_with_ngrok(app)
@@ -14,24 +15,22 @@ def index():
 
 @app.route('/translate', methods = ['POST',"GET"])
 def translate():
-  ta_src_lang = request.args['ta_src_lang']
-  src_lang = request.args['src_lang']
-  if src_lang=="detect":
-    detect = detect_language.detect_languages(ta_src_lang)
-    src_lang = detect[0]['language']
-  dest_lang = request.args['dest_lang']
+  form_data=request.get_json(force = True)
+  ta_src_lang   = form_data['ta_src_lang']
+  src_lang      = form_data['src_lang']
+  dest_lang     = form_data['dest_lang']
   trans_text = main.translate(src_lang,dest_lang, ta_src_lang)
-  response=json.dumps({"src_lang":src_lang,"dest_lang":dest_lang,"ta_src_lang":ta_src_lang})
-  print(response)
+  response=json.dumps({"src_lang": src_lang,"dest_lang": dest_lang,"ta_src_lang": ta_src_lang,"ta_dest_lang":trans_text})
   return response
 
-# @app.route('/change_lang', methods = ['POST'])
-# def change_lang():
-#   ta_src_lang = request.form.get('ta_src_lang')
-#   src_lang = request.form.get('src_lang')
-#   dest_lang = request.form.get('dest_lang')
-#   trans_text = demo(src_lang,dest_lang, ta_src_lang)
-#   return trans_text
+@app.route('/speech_to_text', methods = ['POST'])
+def speech_to_text():
+  form_data     = request.get_json(force = True)
+  dest_lang     = form_data['dest_lang']
+  ta_dest_lang  = form_data['ta_dest_lang']
+  path          = speech.play_text(ta_dest_lang,dest_lang)
+  response=json.dumps({"dest_lang": dest_lang,"ta_dest_lang":ta_dest_lang,"path":path})
+  return response
 
 if __name__ == '__main__':
 	app.run()
