@@ -23,6 +23,7 @@ def translate():
   response=json.dumps({"src_lang": src_lang,"dest_lang": dest_lang,"ta_src_lang": ta_src_lang,"ta_dest_lang":trans_text})
   return response
 
+
 @app.route('/speech_to_text', methods = ['POST'])
 def speech_to_text():
   form_data     = request.get_json(force = True)
