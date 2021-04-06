@@ -1,8 +1,8 @@
 from flask import Flask, request, redirect, render_template
 import json
 from flask_ngrok import run_with_ngrok
-import main
-import detect_language
+# import main
+# import detect_language
 import speech
 
 app = Flask(__name__)
